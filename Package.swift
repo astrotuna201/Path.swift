@@ -1,8 +1,9 @@
-// swift-tools-version:4.2
+// swift-tools-version:5.6
 import PackageDescription
 
 let package = Package(
     name: "Path.swift",
+    platforms: [.macOS(.v12)],
     products: [
         .library(name: "Path", targets: ["Path"]),
     ],

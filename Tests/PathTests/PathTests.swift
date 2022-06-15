@@ -439,7 +439,7 @@ class PathTests: XCTestCase {
             XCTAssertEqual(tmpdir.bar6.type, .file)
 
             // for code-coverage
-            XCTAssertEqual(tmpdir.bar6.kind, .file)
+            XCTAssertEqual(tmpdir.bar6.type, .file)
         }
     }
 
@@ -524,7 +524,7 @@ class PathTests: XCTestCase {
     func testTouchThrowsIfCannotWrite() throws {
         try Path.mktemp { tmpdir in
 
-            print(try FileManager.default.attributesOfItem(atPath: tmpdir.string)[.posixPermissions])
+          print(try FileManager.default.attributesOfItem(atPath: tmpdir.string)[.posixPermissions] as Any)
 
             //FIXME fails in Docker image (only)
             try tmpdir.chmod(0o000)
@@ -532,7 +532,7 @@ class PathTests: XCTestCase {
             let attrs = try FileManager.default.attributesOfItem(atPath: tmpdir.string)
             XCTAssertEqual(attrs[.posixPermissions] as? Int, 0)
 
-            print(attrs[.posixPermissions])
+          print(attrs[.posixPermissions] as Any)
 
             XCTAssertThrowsError(try tmpdir.bar.touch())
             XCTAssertFalse(tmpdir.bar.exists)
